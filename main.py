@@ -54,6 +54,7 @@ async def on_ready():
         bot.tree.copy_global_to(guild=discord.Object(id=1043951982139940955))
     await bot.tree.sync()
     bot.is_synced = True
+    await bot.load_extension('jishaku')
 
     status.start()
 
