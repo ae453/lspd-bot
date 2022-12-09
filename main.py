@@ -8,6 +8,7 @@ import time
 import typing
 from datetime import datetime
 from pytz import timezone
+from discord.ext import tasks
 
 with open('config.json', 'r') as f:
     data = json.load(f)
@@ -18,24 +19,20 @@ bot = commands.Bot(command_prefix=commands.when_mentioned_or(prefix), case_insen
 bot.is_synced = False
 bot.remove_command("help")
 
-async def status(random):
-    randomnum = random.randrange(0, 7)
-    if randomnum == 0:
-        await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name='Body Cam Footage'))
-    elif randomnum == 1:
-        await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name='Over Police Units'))
-    elif randomnum == 2:
-        await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='Code 3 Sirens'))
-    elif randomnum == 3:
-        await bot.change_presence(activity=discord.Game('FiveM'))
-    elif randomnum == 4:
-        await bot.change_presence(activity=discord.Game('West Coast Roleplay'))
-    elif randomnum == 5:
-        await bot.change_presence(activity=discord.Game('with N. Watson'))
-    elif randomnum == 6:
-        await bot.change_presence(activity=discord.Game('with F. Sheets'))
-    elif randomnum == 7:
-        await bot.change_presence(activity=discord.Game('with Other Units'))
+@tasks.loop(minutes=1)
+async def status():
+    choices = [
+        discord.Activity(type=discord.ActivityType.listening, name='Code 3 Sirens'),
+        discord.Activity(type=discord.ActivityType.watching, name='Body Cam Footage'),
+        discord.Activity(type=discord.ActivityType.watching, name='Over Police Units'),
+        discord.Game('FiveM'),
+        discord.Game('West Coast Roleplay'),
+        discord.Game('with N. Watson'),
+        discord.Game('with F. Sheets'), 
+        discord.Game('with Other Units')
+    ]
+    chosen = random.choice(choices)
+    await bot.change_presence(activity=chosen)
 
 @bot.event
 async def on_ready():
@@ -58,7 +55,7 @@ async def on_ready():
     await bot.tree.sync()
     bot.is_synced = True
 
-    await status(random)
+    status.start()
 
 
 async def avatar(ctx: commands.Context, member: typing.Union[discord.Member, discord.User] = None):
