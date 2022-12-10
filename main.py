@@ -134,7 +134,7 @@ async def unit(ctx):
 @discord.app_commands.checks.has_any_role(1050868223547019425, 1050871457653202956)
 async def modify(ctx: commands.Context, username: typing.Union[discord.Member, discord.User], previousrank, newrank, details):
     tz = timezone('EST')
-    print(f"{ctx.author} attempted to run `/unit modify` inside {ctx.channel} at {tz} Eastern Standard Time! Unkown exceptions at this time.")
+    print(f"{ctx.author} attempted to run `/unit modify` inside {ctx.channel} at {timezone('EST')} Eastern Standard Time! Unkown exceptions at this time.")
     previousrank = previousrank.lower()
     newrank = newrank.lower()
     newrankrole = discord.Role
@@ -162,7 +162,10 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
     elif previousrank == "officer":
         prevrankrole = get(member.guild.roles, id=1043952220951027762)
     elif previousrank == "sergeant":
-        prevrankrole = get(member.guild.roles, id=(1050872770063515718, 1050872690795348090, 1050871917072097280, 1050871664038121472))
+        prevsgtrankrole1 = get(member.guild.roles, id=1050872770063515718)
+        prevsgtrankrole2 = get(member.guild.roles, id=1050872690795348090)
+        prevsgtrankrole3 = get(member.guild.roles, id=1050871917072097280)
+        prevsgtrankrole4 = get(member.guild.roles, id=1050871664038121472)
     elif previousrank == "commander":
         prevrankrole = get(member.guild.roles, id=1050871551353954405)
     elif previousrank == "senior commander":
@@ -266,7 +269,10 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
         await member.remove_roles(prevrankrole2)
     elif previousrank == "sergeant":
         prevrankrole2 = get(member.guild.roles, id=1050871602058903572)  # category role
-        await member.remove_roles(prevrankrole)
+        await member.remove_roles(prevsgtrankrole1)
+        await member.remove_roles(prevsgtrankrole2)
+        await member.remove_roles(prevsgtrankrole3)
+        await member.remove_roles(prevsgtrankrole4)
         await member.remove_roles(prevrankrole2)
     elif previousrank == "commander" or "senior commander":
         prevrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
