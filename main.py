@@ -36,7 +36,6 @@ async def status():
 
 @bot.event
 async def on_ready():
-    e = None
     try:
         channel = bot.get_channel(1050893912950177803)
         await channel.send(f'{bot.user.mention} is now online!')
@@ -45,10 +44,7 @@ async def on_ready():
         await channel.send(f"> We are Currently Experiencing Some Issues with Some Functions, Please Try Again Later.\n> `Processes Terminated. Exception Raised.`")
         await channel.send(f'> `{e}`')
         return e
-    if e == None:
-        await channel.send(f"> All Functions Seem to be Operational.")
-    if e != None:
-
+    await channel.send(f"> All Functions Seem to be Operational.")
     print(f'The LSPD Bot is Now Online!')
 
     if not bot.is_synced:
