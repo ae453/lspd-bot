@@ -314,51 +314,98 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
     authorName = ctx.message.author
     authorPhoto = ctx.message.author.display_avatar
     memberAvatar = await avatar(ctx, member=username)
-    embedPromote = discord.Embed(
-        title="🎉🎉 ***LSPD Promotion Logging*** 🎉🎉\n",
-        description="<:lines:1050287334752526356>"*15,
-        color=0x0599f0
-    )
-    embedPromote.add_field(
-        name="<:userbadge:1050285701482151956> User",
-        value="<:lines:1050287334752526356>"*4 + f"\n<:line_arrow_white:1050286867326705665> *<@{userid}>*",
-        inline=False
-    )
-    embedPromote.add_field(
-        name=f":military_medal: Previous Rank {prevrankemoji}",
-        value=f"<:lines:1050287334752526356>"*8 + f"\n<:line_arrow_white:1050286867326705665> *{prevranktext}*",
-        inline=False
-    )
-    embedPromote.add_field(
-        name=f":military_medal: New Rank {newrankemoji}",
-        value="<:lines:1050287334752526356>"*7 + f"\n<:line_arrow_white:1050286867326705665> *{newranktext}*",
-        inline=False
-    )
-    embedPromote.add_field(
-        name=":pencil: Details",
-        value="<:lines:1050287334752526356>"*5 + f"\n<:line_arrow_white:1050286867326705665> *{details}*",
-        inline=False
-    )
-    embedPromote.set_author(name=authorName, url=None, icon_url=authorPhoto)
-    embedPromote.set_thumbnail(url=memberAvatar)
-    embedPromote.set_footer(text="𝘛𝘳𝘶𝘴𝘵𝘦𝘥 𝘚𝘦𝘳𝘷𝘪𝘤𝘦 𝘸𝘪𝘵𝘩 𝘙𝘦𝘴𝘱𝘦𝘤𝘵",
-                            icon_url="https://media.discordapp.net/attachments/1025840738388410428/1026548866675392662/Seal_of_LS_Ghost.png",
-                            )
-    tz = timezone('EST')
-    embedPromote.timestamp = datetime.now(tz)
-#### Sending Initial Messages to User
-    time.sleep(2)
-    try:
-        with open('config.json', 'r') as f:
-            data = json.load(f)
-            promologid = data['promolog']
-        channel = bot.get_channel(promologid)
-        await channel.send(embed=embedPromote)
-        await ctx.reply('Promotion Sucessfully Logged! :tada:')
-        print(f'{username} has been promoted!')
-    except Exception as e:
-        await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `{e}`")
-        print(e)
+    if prevrankrole >= newrankrole:
+        embedPromote = discord.Embed(
+            title="***LSPD Promotion Logging***\n",
+            description="<:lines:1050287334752526356>"*15,
+            color=0x0599f0
+        )
+        embedPromote.add_field(
+            name="<:userbadge:1050285701482151956> User",
+            value="<:lines:1050287334752526356>"*4 + f"\n<:line_arrow_white:1050286867326705665> *<@{userid}>*",
+            inline=False
+        )
+        embedPromote.add_field(
+            name=f":military_medal: Previous Rank {prevrankemoji}",
+            value=f"<:lines:1050287334752526356>"*8 + f"\n<:line_arrow_white:1050286867326705665> *{prevranktext}*",
+            inline=True
+        )
+        embedPromote.add_field(
+            name=f":military_medal: New Rank {newrankemoji}",
+            value="<:lines:1050287334752526356>"*7 + f"\n<:line_arrow_white:1050286867326705665> *{newranktext}*",
+            inline=True
+        )
+        embedPromote.add_field(
+            name=":pencil: Details",
+            value="<:lines:1050287334752526356>"*5 + f"\n<:line_arrow_white:1050286867326705665> *{details}*",
+            inline=False
+        )
+        embedPromote.set_author(name=authorName, url=None, icon_url=authorPhoto)
+        embedPromote.set_thumbnail(url=memberAvatar)
+        embedPromote.set_footer(text="𝘛𝘳𝘶𝘴𝘵𝘦𝘥 𝘚𝘦𝘳𝘷𝘪𝘤𝘦 𝘸𝘪𝘵𝘩 𝘙𝘦𝘴𝘱𝘦𝘤𝘵",
+                                icon_url="https://media.discordapp.net/attachments/1025840738388410428/1026548866675392662/Seal_of_LS_Ghost.png",
+                                )
+        tz = timezone('EST')
+        embedPromote.timestamp = datetime.now(tz)
+    #### Sending Initial Messages to User
+        time.sleep(2)
+        try:
+            with open('config.json', 'r') as f:
+                data = json.load(f)
+                promologid = data['promolog']
+            channel = bot.get_channel(promologid)
+            await channel.send(embed=embedPromote)
+            await ctx.reply('Promotion Sucessfully Logged! :tada:')
+            print(f'{username} has been promoted!')
+        except Exception as e:
+            await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `{e}`")
+            print(e)
+    elif prevrankrole <= newrankrole:
+        embedDemote = discord.Embed(
+            title="***LSPD Demotion Logging***\n",
+            description="<:lines:1050287334752526356>" * 15,
+            color=0x0599f0
+        )
+        embedDemote.add_field(
+            name="<:userbadge:1050285701482151956> User",
+            value="<:lines:1050287334752526356>" * 4 + f"\n<:line_arrow_white:1050286867326705665> *<@{userid}>*",
+            inline=False
+        )
+        embedDemote.add_field(
+            name=f":military_medal: Previous Rank {prevrankemoji}",
+            value=f"<:lines:1050287334752526356>" * 8 + f"\n<:line_arrow_white:1050286867326705665> *{prevranktext}*",
+            inline=True
+        )
+        embedDemote.add_field(
+            name=f":military_medal: New Rank {newrankemoji}",
+            value="<:lines:1050287334752526356>" * 7 + f"\n<:line_arrow_white:1050286867326705665> *{newranktext}*",
+            inline=True
+        )
+        embedDemote.add_field(
+            name=":pencil: Details",
+            value="<:lines:1050287334752526356>" * 5 + f"\n<:line_arrow_white:1050286867326705665> *{details}*",
+            inline=False
+        )
+        embedDemote.set_author(name=authorName, url=None, icon_url=authorPhoto)
+        embedDemote.set_thumbnail(url=memberAvatar)
+        embedDemote.set_footer(text="𝘛𝘳𝘶𝘴𝘵𝘦𝘥 𝘚𝘦𝘳𝘷𝘪𝘤𝘦 𝘸𝘪𝘵𝘩 𝘙𝘦𝘴𝘱𝘦𝘤𝘵",
+                                icon_url="https://media.discordapp.net/attachments/1025840738388410428/1026548866675392662/Seal_of_LS_Ghost.png",
+                                )
+        tz = timezone('EST')
+        embedDemote.timestamp = datetime.now(tz)
+        #### Sending Initial Messages to User
+        time.sleep(2)
+        try:
+            with open('config.json', 'r') as f:
+                data = json.load(f)
+                promologid = data['promolog']
+            channel = bot.get_channel(promologid)
+            await channel.send(embed=embedDemote)
+            await ctx.reply('Demotion Sucessfully Logged! <:check:1050933083442008094>')
+            print(f'{username} has been demoted!')
+        except Exception as e:
+            await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `{e}`")
+            print(e)
 
 
 bot.run(token)
