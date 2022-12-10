@@ -232,7 +232,7 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
         commander_prevrankrole = get(member.guild.roles, id=1050871551353954405)
         prevrankrole = commander_prevrankrole
         prevrankrole2 = command_prevrankrole2
-        if commander_newrankrole >= ctx.author.top_role:
+        if commander_newrankrole.position >= ctx.author.top_role:
             return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     elif previousrank == "senior commander":
         command_prevrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
