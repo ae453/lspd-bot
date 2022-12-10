@@ -38,7 +38,7 @@ async def status():
 async def on_ready():
     e = None
     try:
-        channel = bot.get_channel(1049996024619474974)
+        channel = bot.get_channel(1050968080890728529)
         await channel.send(f'{bot.user.mention} is now online!')
     except Exception as e:
         print(e)
@@ -51,7 +51,7 @@ async def on_ready():
     print(f'The LSPD Bot is Now Online!')
 
     if not bot.is_synced:
-        bot.tree.copy_global_to(guild=discord.Object(id=1043951982139940955))
+        bot.tree.copy_global_to(guild=discord.Object(id=1050863587926749235))
     await bot.tree.sync()
     bot.is_synced = True
     await bot.load_extension('jishaku')
