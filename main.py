@@ -142,38 +142,38 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
     userid = username.id
     member = ctx.guild.get_member(userid)
     if newrank == "probationary officer":
-        newrankrole = get(member.guild.roles, id=1050326925157081108)
+        probie_newrankrole = get(member.guild.roles, id=1050872986263105567)
     elif newrank == "officer":
-        newrankrole = get(member.guild.roles, id=1043952220951027762)
+        officer_newrankrole = get(member.guild.roles, id=1050872931628105760)
     elif newrank == "sergeant":
-        newrankrole = get(member.guild.roles, id=1050872770063515718)
+        sgt1_newrankrole = get(member.guild.roles, id=1050872770063515718)
     elif newrank == "commander":
-        newrankrole = get(member.guild.roles, id=1050871551353954405)
+        commander_newrankrole = get(member.guild.roles, id=1050871551353954405)
     elif newrank == "senior commander":
-        newrankrole = get(member.guild.roles, id=1050871518302847016)
+        commander_newrankrole = get(member.guild.roles, id=1050871518302847016)
     elif newrank == "deputy chief":
-        newrankrole = get(member.guild.roles, id=1050871342129496146)
+        chief_newrankrole = get(member.guild.roles, id=1050871342129496146)
     elif newrank == "assistant chief":
-        newrankrole = get(member.guild.roles, id=1050871238660206662)
+        chief_newrankrole = get(member.guild.roles, id=1050871238660206662)
     else:
         return await ctx.reply(f"Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `Variable 'newrank' does not represent any current rank. Check your spelling and try again.`")
     if previousrank == "probationary officer":
-        prevrankrole = get(member.guild.roles, id=1050326925157081108)
+        probie_prevrankrole = get(member.guild.roles, id=1050872986263105567)
     elif previousrank == "officer":
-        prevrankrole = get(member.guild.roles, id=1043952220951027762)
+        officer_prevrankrole = get(member.guild.roles, id=1050872931628105760)
     elif previousrank == "sergeant":
-        prevsgtrankrole1 = get(member.guild.roles, id=1050872770063515718)
-        prevsgtrankrole2 = get(member.guild.roles, id=1050872690795348090)
-        prevsgtrankrole3 = get(member.guild.roles, id=1050871917072097280)
-        prevsgtrankrole4 = get(member.guild.roles, id=1050871664038121472)
+        sgt1_prevrankrole1 = get(member.guild.roles, id=1050872770063515718)
+        sgt2_prevrankrole2 = get(member.guild.roles, id=1050872690795348090)
+        sgt3_prevrankrole3 = get(member.guild.roles, id=1050871917072097280)
+        sgt4_prevrankrole4 = get(member.guild.roles, id=1050871664038121472)
     elif previousrank == "commander":
-        prevrankrole = get(member.guild.roles, id=1050871551353954405)
+        commander_prevrankrole = get(member.guild.roles, id=1050871551353954405)
     elif previousrank == "senior commander":
-        prevrankrole = get(member.guild.roles, id=1050871518302847016)
+        commander_prevrankrole = get(member.guild.roles, id=1050871518302847016)
     elif previousrank == "deputy chief":
-        prevrankrole = get(member.guild.roles, id=1050871342129496146)
+        chief_prevrankrole = get(member.guild.roles, id=1050871342129496146)
     elif previousrank == "assistant chief":
-        prevrankrole = get(member.guild.roles, id=1050871238660206662)
+        chief_prevrankrole = get(member.guild.roles, id=1050871238660206662)
     else:
         return await ctx.reply(f"Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `Variable 'previousrank' does not represent any current rank. Check your spelling and try again.`")
     if newrankrole >= ctx.author.top_role:
@@ -261,47 +261,47 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
         return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `Improper Rank for Variable 'newrank'. Check Your Spelling and Try Again.`")
     if previousrank == "probationary officer":
         prevrankrole2 = get(member.guild.roles, id=1050873087274520668) # category role
-        await member.remove_roles(prevrankrole)
-        await member.remove_roles(prevrankrole2)
+        await member.remove_roles(probie-prevrankrole)
+        await member.remove_roles(entry-prevrankrole2)
     elif previousrank == "officer":
         prevrankrole2 = get(member.guild.roles, id=1050872870848430121)  # category role
-        await member.remove_roles(prevrankrole)
-        await member.remove_roles(prevrankrole2)
+        await member.remove_roles(officer-prevrankrole)
+        await member.remove_roles(swornIn-prevrankrole2)
     elif previousrank == "sergeant":
         prevrankrole2 = get(member.guild.roles, id=1050871602058903572)  # category role
-        await member.remove_roles(prevsgtrankrole1)
-        await member.remove_roles(prevsgtrankrole2)
-        await member.remove_roles(prevsgtrankrole3)
-        await member.remove_roles(prevsgtrankrole4)
-        await member.remove_roles(prevrankrole2)
+        await member.remove_roles(sgt1-prevrankrole1)
+        await member.remove_roles(sgt2-prevrankrole2)
+        await member.remove_roles(sgt3-prevrankrole3)
+        await member.remove_roles(sgt4-prevrankrole4)
+        await member.remove_roles(supervisor-prevrankrole2)
     elif previousrank == "commander" or "senior commander":
         prevrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
-        await member.remove_roles(prevrankrole)
-        await member.remove_roles(prevrankrole2)
+        await member.remove_roles(commander-prevrankrole)
+        await member.remove_roles(command-prevrankrole2)
     elif previousrank == "deputy chief" or "assistant chief" or "chief":
         prevrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
-        await member.remove_roles(prevrankrole)
-        await member.remove_roles(prevrankrole2)
+        await member.remove_roles(chief-prevrankrole)
+        await member.remove_roles(chief-prevrankrole2)
     if newrank == "probationary officer":
         newrankrole2 = get(member.guild.roles, id=1050873087274520668) # category role
-        await member.add_roles(newrankrole)
-        await member.add_roles(newrankrole2)
+        await member.add_roles(officer-newrankrole)
+        await member.add_roles(swornIn-newrankrole2)
     elif newrank == "officer":
         newrankrole2 = get(member.guild.roles, id=1050872870848430121) # category role
         await member.add_roles(newrankrole)
         await member.add_roles(newrankrole2)
     elif newrank == "sergeant":
         newrankrole2 = get(member.guild.roles, id=1050871602058903572) # category role
-        await member.add_roles(newrankrole)
-        await member.add_roles(newrankrole2)
+        await member.add_roles(sgt1-newrankrole1)
+        await member.add_roles(supervisor-newrankrole2)
     elif newrank == "commander" or "senior commander":
         newrankrole2 = get(member.guild.roles, id=1050871457653202956) # category role
-        await member.add_roles(newrankrole)
-        await member.add_roles(newrankrole2)
+        await member.add_roles(commander-newrankrole)
+        await member.add_roles(command-newrankrole2)
     elif newrank == "deputy chief" or "assistant chief" or "chief":
         newrankrole2 = get(member.guild.roles, id=1050868223547019425) # category role
-        await member.add_roles(newrankrole)
-        await member.add_roles(newrankrole2)
+        await member.add_roles(chief-newrankrole)
+        await member.add_roles(chief-newrankrole2)
     #### Setting up the Embed
     authorName = ctx.message.author
     authorPhoto = ctx.message.author.display_avatar
