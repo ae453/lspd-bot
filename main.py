@@ -143,15 +143,21 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
 
     probie_newrankrole = discord.Role
     officer_newrankrole = discord.Role
-    sgt1_newrankrole = discord.Role
+    sgt1_newrankrole1 = discord.Role
     commander_newrankrole = discord.Role
     chief_newrankrole = discord.Role
 
     probie_newrankrole2 = discord.Role
     officer_newrankrole2 = discord.Role
-    sgt1_newrankrole2 = discord.Role
+    supervisor_newrankrole2 = discord.Role
     commander_newrankrole2 = discord.Role
     chief_newrankrole2 = discord.Role
+
+    probie_prevrankrole2 = discord.Role
+    officer_prevrankrole2 = discord.Role
+    supervisor_prevrankrole2 = discord.Role
+    commander_prevrankrole2 = discord.Role
+    chief_prevrankrole2 = discord.Role
 
     probie_prevrankrole = discord.Role
     officer_prevrankrole = discord.Role
@@ -165,25 +171,25 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
     userid = username.id
     member = ctx.guild.get_member(userid)
     if newrank == "probationary officer":
-        entry_prevrankrole2 = get(member.guild.roles, id=1050873087274520668)  # category role
+        entry_newrankrole2 = get(member.guild.roles, id=1050873087274520668)  # category role
         probie_newrankrole = get(member.guild.roles, id=1050872986263105567)
     elif newrank == "officer":
-        swornIn_prevrankrole2 = get(member.guild.roles, id=1050872870848430121)  # category role
+        swornIn_newrankrole2 = get(member.guild.roles, id=1050872870848430121)  # category role
         officer_newrankrole = get(member.guild.roles, id=1050872931628105760)
     elif newrank == "sergeant":
-        supervisor_prevrankrole2 = get(member.guild.roles, id=1050871602058903572)  # category role
+        supervisor_newrankrole2 = get(member.guild.roles, id=1050871602058903572)  # category role
         sgt1_newrankrole1 = get(member.guild.roles, id=1050872770063515718)
     elif newrank == "commander":
-        command_prevrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
+        command_newrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
         commander_newrankrole = get(member.guild.roles, id=1050871551353954405)
     elif newrank == "senior commander":
-        command_prevrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
+        command_newrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
         commander_newrankrole = get(member.guild.roles, id=1050871518302847016)
     elif newrank == "deputy chief":
-        chief_prevrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
+        chief_newrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
         chief_newrankrole = get(member.guild.roles, id=1050871342129496146)
     elif newrank == "assistant chief":
-        chief_prevrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
+        chief_newrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
         chief_newrankrole = get(member.guild.roles, id=1050871238660206662)
     else:
         return await ctx.reply(f"Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `Variable 'newrank' does not represent any current rank. Check your spelling and try again.`")
