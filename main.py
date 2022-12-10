@@ -42,12 +42,13 @@ async def on_ready():
         await channel.send(f'{bot.user.mention} is now online!')
     except Exception as e:
         print(e)
-        await channel.send(f'{e}')
+        await channel.send(f"> We are Currently Experiencing Some Issues with Some Functions, Please Try Again Later.\n> `Processes Terminated. Exception Raised.`")
+        await channel.send(f'> `{e}`')
         return e
     if e == None:
         await channel.send(f"> All Functions Seem to be Operational.")
     if e != None:
-        await channel.send(f"> We are Currently Having Issues with Some Functions.")
+
     print(f'The LSPD Bot is Now Online!')
 
     if not bot.is_synced:
@@ -69,7 +70,7 @@ async def avatar(ctx: commands.Context, member: typing.Union[discord.Member, dis
             await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `{e}`")
             print(e)
             time.sleep(5)
-            pass
+            return
     else:
         try:
             Avatar = member.avatar.url
@@ -78,7 +79,7 @@ async def avatar(ctx: commands.Context, member: typing.Union[discord.Member, dis
             await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `{e}`")
             print(e)
             time.sleep(5)
-            pass
+            return
 
 @bot.command(name="ping", description="Simple ping pong command")
 async def ping(ctx, interaction):
@@ -110,7 +111,7 @@ async def promologchannel(ctx: commands.Context, channel):
                     f.write(channel)
                     newchannel = data['promolog']
                     if newchannel == channel:
-                        return True
+                        pass
                     else:
                         return False
             except Exception as e:
@@ -417,6 +418,7 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
             except Exception as e:
                 await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `{e}`")
                 print(e)
+                return
     elif prevrankrole2 <= newrankrole2:
         if prevrankrole <= newrankrole:
             embedDemote = discord.Embed(
@@ -463,8 +465,10 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
             except Exception as e:
                 await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `{e}`")
                 print(e)
+                return
     else:
         await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `Unkown Excpetion`")
+        return
 
 
 bot.run(token)
