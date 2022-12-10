@@ -172,7 +172,7 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
         officer_newrankrole = get(member.guild.roles, id=1050872931628105760)
     elif newrank == "sergeant":
         supervisor_prevrankrole2 = get(member.guild.roles, id=1050871602058903572)  # category role
-        sgt1_newrankrole = get(member.guild.roles, id=1050872770063515718)
+        sgt1_newrankrole1 = get(member.guild.roles, id=1050872770063515718)
     elif newrank == "commander":
         command_prevrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
         commander_newrankrole = get(member.guild.roles, id=1050871551353954405)
