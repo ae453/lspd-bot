@@ -137,8 +137,25 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
     print(f"{ctx.author} attempted to run `/unit modify` inside {ctx.channel} at {timezone('EST')} Eastern Standard Time! Unkown exceptions at this time.")
     previousrank = previousrank.lower()
     newrank = newrank.lower()
+
     newrankrole = discord.Role
     prevrankrole = discord.Role
+
+    probie_newrankrole = discord.Role
+    officer_newrankrole = discord.Role
+    sgt1_newrankrole = discord.Role
+    commander_newrankrole = discord.Role
+    chief_newrankrole = discord.Role
+
+    probie_prevrankrole = discord.Role
+    officer_prevrankrole = discord.Role
+    sgt1_prevrankrole = discord.Role
+    sgt2_prevrankrole = discord.Role
+    sgt3_prevrankrole = discord.Role
+    sgt4_prevrankrole = discord.Role
+    commander_prevrankrole = discord.Role
+    chief_prevrankrole = discord.Role
+
     userid = username.id
     member = ctx.guild.get_member(userid)
     if newrank == "probationary officer":
