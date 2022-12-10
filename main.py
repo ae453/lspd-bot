@@ -89,8 +89,8 @@ async def ping(ctx, interaction):
     ephemeral=True
 )
 async def promologchannel(ctx: commands.Context, channel):
-    chiefcheck = discord.utils.get(ctx.author.roles, id=1043952177128951849)
-    if chiefcheck or ae453check == true:
+    chiefcheck = discord.utils.get(ctx.author.roles, id=1050868223547019425)
+    if chiefcheck == true:
         await ctx.reply("Process Initalized.")
         return True
     else:
@@ -131,8 +131,11 @@ async def unit(ctx):
     name="modify",
     ephemeral=True
 )
-@discord.app_commands.checks.has_any_role(1043952177128951849, 1043952204211556373)
+@discord.app_commands.checks.has_any_role(1050868223547019425, 1050871457653202956)
 async def modify(ctx: commands.Context, username: typing.Union[discord.Member, discord.User], previousrank, newrank, details):
+    tz = timezone('EST')
+    embedDemote.timestamp = datetime.now(tz)
+    print(f"{ctx.author} attempted to run `/unit modify` inside {ctx.channel} at {tz} Eastern Standard Time! Unkown exceptions at this time.")
     previousrank = previousrank.lower()
     newrank = newrank.lower()
     newrankrole = discord.Role
@@ -144,15 +147,15 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
     elif newrank == "officer":
         newrankrole = get(member.guild.roles, id=1043952220951027762)
     elif newrank == "sergeant":
-        newrankrole = get(member.guild.roles, id=1043952212897955901)
+        newrankrole = get(member.guild.roles, id=1050872770063515718)
     elif newrank == "commander":
-        newrankrole = get(member.guild.roles, id=1043952206568759388)
+        newrankrole = get(member.guild.roles, id=1050871551353954405)
     elif newrank == "senior commander":
-        newrankrole = get(member.guild.roles, id=1043952206568759388)
+        newrankrole = get(member.guild.roles, id=1050871518302847016)
     elif newrank == "deputy chief":
-        newrankrole = get(member.guild.roles, id=1043952205176250480)
+        newrankrole = get(member.guild.roles, id=1050871342129496146)
     elif newrank == "assistant chief":
-        newrankrole = get(member.guild.roles, id=1043952202143764661)
+        newrankrole = get(member.guild.roles, id=1050871238660206662)
     else:
         return await ctx.reply(f"Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `Variable 'newrank' does not represent any current rank. Check your spelling and try again.`")
     if previousrank == "probationary officer":
@@ -160,15 +163,15 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
     elif previousrank == "officer":
         prevrankrole = get(member.guild.roles, id=1043952220951027762)
     elif previousrank == "sergeant":
-        prevrankrole = get(member.guild.roles, id=1043952212897955901)
+        prevrankrole = get(member.guild.roles, id=(1050872770063515718, 1050872690795348090, 1050871917072097280, 1050871664038121472))
     elif previousrank == "commander":
-        prevrankrole = get(member.guild.roles, id=1043952206568759388)
+        prevrankrole = get(member.guild.roles, id=1050871551353954405)
     elif previousrank == "senior commander":
-        prevrankrole = get(member.guild.roles, id=1043952206568759388)
+        prevrankrole = get(member.guild.roles, id=1050871518302847016)
     elif previousrank == "deputy chief":
-        prevrankrole = get(member.guild.roles, id=1043952205176250480)
+        prevrankrole = get(member.guild.roles, id=1050871342129496146)
     elif previousrank == "assistant chief":
-        prevrankrole = get(member.guild.roles, id=1043952202143764661)
+        prevrankrole = get(member.guild.roles, id=1050871238660206662)
     else:
         return await ctx.reply(f"Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `Variable 'previousrank' does not represent any current rank. Check your spelling and try again.`")
     if newrankrole >= ctx.author.top_role:
@@ -255,59 +258,43 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
     else:
         return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `Improper Rank for Variable 'newrank'. Check Your Spelling and Try Again.`")
     if previousrank == "probationary officer":
-        prevrankrole2 = get(member.guild.roles, id=1043961157641310258) # category role
+        prevrankrole2 = get(member.guild.roles, id=1050873087274520668) # category role
         await member.remove_roles(prevrankrole)
         await member.remove_roles(prevrankrole2)
-    if previousrank == "officer":
-        prevrankrole2 = get(member.guild.roles, id=1043952218962931733)  # category role
+    elif previousrank == "officer":
+        prevrankrole2 = get(member.guild.roles, id=1050872870848430121)  # category role
         await member.remove_roles(prevrankrole)
         await member.remove_roles(prevrankrole2)
-    if previousrank == "sergeant":
-        prevrankrole2 = get(member.guild.roles, id=1043952208863055902)  # category role
+    elif previousrank == "sergeant":
+        prevrankrole2 = get(member.guild.roles, id=1050871602058903572)  # category role
         await member.remove_roles(prevrankrole)
         await member.remove_roles(prevrankrole2)
-    if previousrank == "commander":
-        prevrankrole2 = get(member.guild.roles, id=1043952204211556373)  # category role
+    elif previousrank == "commander" or "senior commander":
+        prevrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
         await member.remove_roles(prevrankrole)
         await member.remove_roles(prevrankrole2)
-    if previousrank == "senior commander":
-        prevrankrole2 = get(member.guild.roles, id=1043952204211556373)  # category role
-        await member.remove_roles(prevrankrole)
-        await member.remove_roles(prevrankrole2)
-    if previousrank == "deputy chief":
-        prevrankrole2 = get(member.guild.roles, id=1043952177128951849)  # category role
-        await member.remove_roles(prevrankrole)
-        await member.remove_roles(prevrankrole2)
-    if previousrank == "assistant chief":
-        prevrankrole2 = get(member.guild.roles, id=1043952177128951849)  # category role
+    elif previousrank == "deputy chief" or "assistant chief" or "chief":
+        prevrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
         await member.remove_roles(prevrankrole)
         await member.remove_roles(prevrankrole2)
     if newrank == "probationary officer":
-        newrankrole2 = get(member.guild.roles, id=1043961157641310258) # category role
+        newrankrole2 = get(member.guild.roles, id=1050873087274520668) # category role
         await member.add_roles(newrankrole)
         await member.add_roles(newrankrole2)
-    if newrank == "officer":
-        newrankrole2 = get(member.guild.roles, id=1043952218962931733) # category role
+    elif newrank == "officer":
+        newrankrole2 = get(member.guild.roles, id=1050872870848430121) # category role
         await member.add_roles(newrankrole)
         await member.add_roles(newrankrole2)
-    if newrank == "sergeant":
-        newrankrole2 = get(member.guild.roles, id=1043952208863055902) # category role
+    elif newrank == "sergeant":
+        newrankrole2 = get(member.guild.roles, id=1050871602058903572) # category role
         await member.add_roles(newrankrole)
         await member.add_roles(newrankrole2)
-    if newrank == "commander":
-        newrankrole2 = get(member.guild.roles, id=1043952204211556373) # category role
+    elif newrank == "commander" or "senior commander":
+        newrankrole2 = get(member.guild.roles, id=1050871457653202956) # category role
         await member.add_roles(newrankrole)
         await member.add_roles(newrankrole2)
-    if newrank == "senior commander":
-        newrankrole2 = get(member.guild.roles, id=1043952204211556373) # category role
-        await member.add_roles(newrankrole)
-        await member.add_roles(newrankrole2)
-    if newrank == "deputy chief":
-        newrankrole2 = get(member.guild.roles, id=1043952177128951849) # category role
-        await member.add_roles(newrankrole)
-        await member.add_roles(newrankrole2)
-    if newrank == "assistant chief":
-        newrankrole2 = get(member.guild.roles, id=1043952177128951849) # category role
+    elif newrank == "deputy chief" or "assistant chief" or "chief":
+        newrankrole2 = get(member.guild.roles, id=1050868223547019425) # category role
         await member.add_roles(newrankrole)
         await member.add_roles(newrankrole2)
     #### Setting up the Embed
@@ -328,12 +315,12 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
         embedPromote.add_field(
             name=f":military_medal: Previous Rank {prevrankemoji}",
             value=f"<:lines:1050287334752526356>"*8 + f"\n<:line_arrow_white:1050286867326705665> *{prevranktext}*",
-            inline=True
+            inline=False
         )
         embedPromote.add_field(
             name=f":military_medal: New Rank {newrankemoji}",
             value="<:lines:1050287334752526356>"*7 + f"\n<:line_arrow_white:1050286867326705665> *{newranktext}*",
-            inline=True
+            inline=False
         )
         embedPromote.add_field(
             name=":pencil: Details",
@@ -345,8 +332,6 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
         embedPromote.set_footer(text="𝘛𝘳𝘶𝘴𝘵𝘦𝘥 𝘚𝘦𝘳𝘷𝘪𝘤𝘦 𝘸𝘪𝘵𝘩 𝘙𝘦𝘴𝘱𝘦𝘤𝘵",
                                 icon_url="https://media.discordapp.net/attachments/1025840738388410428/1026548866675392662/Seal_of_LS_Ghost.png",
                                 )
-        tz = timezone('EST')
-        embedPromote.timestamp = datetime.now(tz)
     #### Sending Initial Messages to User
         time.sleep(2)
         try:
@@ -374,12 +359,12 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
         embedDemote.add_field(
             name=f":military_medal: Previous Rank {prevrankemoji}",
             value=f"<:lines:1050287334752526356>" * 8 + f"\n<:line_arrow_white:1050286867326705665> *{prevranktext}*",
-            inline=True
+            inline=False
         )
         embedDemote.add_field(
             name=f":military_medal: New Rank {newrankemoji}",
             value="<:lines:1050287334752526356>" * 7 + f"\n<:line_arrow_white:1050286867326705665> *{newranktext}*",
-            inline=True
+            inline=False
         )
         embedDemote.add_field(
             name=":pencil: Details",
@@ -391,8 +376,7 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
         embedDemote.set_footer(text="𝘛𝘳𝘶𝘴𝘵𝘦𝘥 𝘚𝘦𝘳𝘷𝘪𝘤𝘦 𝘸𝘪𝘵𝘩 𝘙𝘦𝘴𝘱𝘦𝘤𝘵",
                                 icon_url="https://media.discordapp.net/attachments/1025840738388410428/1026548866675392662/Seal_of_LS_Ghost.png",
                                 )
-        tz = timezone('EST')
-        embedDemote.timestamp = datetime.now(tz)
+
         #### Sending Initial Messages to User
         time.sleep(2)
         try:
