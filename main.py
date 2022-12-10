@@ -134,7 +134,6 @@ async def unit(ctx):
 @discord.app_commands.checks.has_any_role(1050868223547019425, 1050871457653202956)
 async def modify(ctx: commands.Context, username: typing.Union[discord.Member, discord.User], previousrank, newrank, details):
     tz = timezone('EST')
-    embedDemote.timestamp = datetime.now(tz)
     print(f"{ctx.author} attempted to run `/unit modify` inside {ctx.channel} at {tz} Eastern Standard Time! Unkown exceptions at this time.")
     previousrank = previousrank.lower()
     newrank = newrank.lower()
@@ -332,6 +331,7 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
         embedPromote.set_footer(text="𝘛𝘳𝘶𝘴𝘵𝘦𝘥 𝘚𝘦𝘳𝘷𝘪𝘤𝘦 𝘸𝘪𝘵𝘩 𝘙𝘦𝘴𝘱𝘦𝘤𝘵",
                                 icon_url="https://media.discordapp.net/attachments/1025840738388410428/1026548866675392662/Seal_of_LS_Ghost.png",
                                 )
+        embedPromote.timestamp = datetime.now(tz)
     #### Sending Initial Messages to User
         time.sleep(2)
         try:
@@ -376,7 +376,7 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
         embedDemote.set_footer(text="𝘛𝘳𝘶𝘴𝘵𝘦𝘥 𝘚𝘦𝘳𝘷𝘪𝘤𝘦 𝘸𝘪𝘵𝘩 𝘙𝘦𝘴𝘱𝘦𝘤𝘵",
                                 icon_url="https://media.discordapp.net/attachments/1025840738388410428/1026548866675392662/Seal_of_LS_Ghost.png",
                                 )
-
+        embedDemote.timestamp = datetime.now(tz)
         #### Sending Initial Messages to User
         time.sleep(2)
         try:
