@@ -147,6 +147,12 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
     commander_newrankrole = discord.Role
     chief_newrankrole = discord.Role
 
+    probie_newrankrole2 = discord.Role
+    officer_newrankrole2 = discord.Role
+    sgt1_newrankrole2 = discord.Role
+    commander_newrankrole2 = discord.Role
+    chief_newrankrole2 = discord.Role
+
     probie_prevrankrole = discord.Role
     officer_prevrankrole = discord.Role
     sgt1_prevrankrole = discord.Role
@@ -159,46 +165,62 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
     userid = username.id
     member = ctx.guild.get_member(userid)
     if newrank == "probationary officer":
+        entry_prevrankrole2 = get(member.guild.roles, id=1050873087274520668)  # category role
         probie_newrankrole = get(member.guild.roles, id=1050872986263105567)
     elif newrank == "officer":
+        swornIn_prevrankrole2 = get(member.guild.roles, id=1050872870848430121)  # category role
         officer_newrankrole = get(member.guild.roles, id=1050872931628105760)
     elif newrank == "sergeant":
+        supervisor_prevrankrole2 = get(member.guild.roles, id=1050871602058903572)  # category role
         sgt1_newrankrole = get(member.guild.roles, id=1050872770063515718)
     elif newrank == "commander":
+        command_prevrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
         commander_newrankrole = get(member.guild.roles, id=1050871551353954405)
     elif newrank == "senior commander":
+        command_prevrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
         commander_newrankrole = get(member.guild.roles, id=1050871518302847016)
     elif newrank == "deputy chief":
+        chief_prevrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
         chief_newrankrole = get(member.guild.roles, id=1050871342129496146)
     elif newrank == "assistant chief":
+        chief_prevrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
         chief_newrankrole = get(member.guild.roles, id=1050871238660206662)
     else:
         return await ctx.reply(f"Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `Variable 'newrank' does not represent any current rank. Check your spelling and try again.`")
     if previousrank == "probationary officer":
+        entry_prevrankrole2 = get(member.guild.roles, id=1050873087274520668)  # category role
         probie_prevrankrole = get(member.guild.roles, id=1050872986263105567)
     elif previousrank == "officer":
+        swornIn_prevrankrole2 = get(member.guild.roles, id=1050872870848430121)  # category role
         officer_prevrankrole = get(member.guild.roles, id=1050872931628105760)
     elif previousrank == "sergeant":
+        supervisor_prevrankrole2 = get(member.guild.roles, id=1050871602058903572)  # category role
         sgt1_prevrankrole1 = get(member.guild.roles, id=1050872770063515718)
         sgt2_prevrankrole2 = get(member.guild.roles, id=1050872690795348090)
         sgt3_prevrankrole3 = get(member.guild.roles, id=1050871917072097280)
         sgt4_prevrankrole4 = get(member.guild.roles, id=1050871664038121472)
     elif previousrank == "commander":
+        command_prevrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
         commander_prevrankrole = get(member.guild.roles, id=1050871551353954405)
+        if commander_newrankrole >= ctx.author.top_role:
+            return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     elif previousrank == "senior commander":
+        command_prevrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
         commander_prevrankrole = get(member.guild.roles, id=1050871518302847016)
+        if commander_newrankrole >= ctx.author.top_role:
+            return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     elif previousrank == "deputy chief":
+        chief_prevrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
         chief_prevrankrole = get(member.guild.roles, id=1050871342129496146)
+        if chief_newrankrole >= ctx.author.top_role:
+            return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     elif previousrank == "assistant chief":
+        chief_prevrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
         chief_prevrankrole = get(member.guild.roles, id=1050871238660206662)
+        if chief_newrankrole >= ctx.author.top_role:
+            return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     else:
         return await ctx.reply(f"Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `Variable 'previousrank' does not represent any current rank. Check your spelling and try again.`")
-    if commander_newrankrole >= ctx.author.top_role:
-        return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
-    elif chief_newrankrole >= ctx.author.top_role:
-        return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
-    else:
-        pass
     if username == ctx.author:
         print("Process Terminated.\n    Reason: User attempted to promote self.")
         return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Attempted to Promote Self`")
@@ -279,48 +301,38 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
     else:
         return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `Improper Rank for Variable 'newrank'. Check Your Spelling and Try Again.`")
     if previousrank == "probationary officer":
-        prevrankrole2 = get(member.guild.roles, id=1050873087274520668) # category role
-        await member.remove_roles(probie-prevrankrole)
-        await member.remove_roles(entry-prevrankrole2)
+        await member.remove_roles(probie_prevrankrole)
+        await member.remove_roles(entry_prevrankrole2)
     elif previousrank == "officer":
-        prevrankrole2 = get(member.guild.roles, id=1050872870848430121)  # category role
-        await member.remove_roles(officer-prevrankrole)
-        await member.remove_roles(swornIn-prevrankrole2)
+        await member.remove_roles(officer_prevrankrole)
+        await member.remove_roles(swornIn_prevrankrole2)
     elif previousrank == "sergeant":
-        prevrankrole2 = get(member.guild.roles, id=1050871602058903572)  # category role
-        await member.remove_roles(sgt1-prevrankrole1)
-        await member.remove_roles(sgt2-prevrankrole2)
-        await member.remove_roles(sgt3-prevrankrole3)
-        await member.remove_roles(sgt4-prevrankrole4)
-        await member.remove_roles(supervisor-prevrankrole2)
+        await member.remove_roles(sgt1_prevrankrole1)
+        await member.remove_roles(sgt2_prevrankrole2)
+        await member.remove_roles(sgt3_prevrankrole3)
+        await member.remove_roles(sgt4_prevrankrole4)
+        await member.remove_roles(supervisor_prevrankrole2)
     elif previousrank == "commander" or "senior commander":
-        prevrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
-        await member.remove_roles(commander-prevrankrole)
-        await member.remove_roles(command-prevrankrole2)
+        await member.remove_roles(commander_prevrankrole)
+        await member.remove_roles(command_prevrankrole2)
     elif previousrank == "deputy chief" or "assistant chief" or "chief":
-        prevrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
-        await member.remove_roles(chief-prevrankrole)
-        await member.remove_roles(chief-prevrankrole2)
+        await member.remove_roles(chief_prevrankrole)
+        await member.remove_roles(chief_prevrankrole2)
     if newrank == "probationary officer":
-        newrankrole2 = get(member.guild.roles, id=1050873087274520668) # category role
-        await member.add_roles(officer-newrankrole)
-        await member.add_roles(swornIn-newrankrole2)
+        await member.add_roles(probie_newrankrole)
+        await member.add_roles(entry_newrankrole2)
     elif newrank == "officer":
-        newrankrole2 = get(member.guild.roles, id=1050872870848430121) # category role
-        await member.add_roles(newrankrole)
-        await member.add_roles(newrankrole2)
+        await member.add_roles(officer_newrankrole)
+        await member.add_roles(swornIn_newrankrole2)
     elif newrank == "sergeant":
-        newrankrole2 = get(member.guild.roles, id=1050871602058903572) # category role
-        await member.add_roles(sgt1-newrankrole1)
-        await member.add_roles(supervisor-newrankrole2)
+        await member.add_roles(sgt1_newrankrole1)
+        await member.add_roles(supervisor_newrankrole2)
     elif newrank == "commander" or "senior commander":
-        newrankrole2 = get(member.guild.roles, id=1050871457653202956) # category role
-        await member.add_roles(commander-newrankrole)
-        await member.add_roles(command-newrankrole2)
+        await member.add_roles(commander_newrankrole)
+        await member.add_roles(command_newrankrole2)
     elif newrank == "deputy chief" or "assistant chief" or "chief":
-        newrankrole2 = get(member.guild.roles, id=1050868223547019425) # category role
-        await member.add_roles(chief-newrankrole)
-        await member.add_roles(chief-newrankrole2)
+        await member.add_roles(chief_newrankrole)
+        await member.add_roles(chief_newrankrole2)
     #### Setting up the Embed
     authorName = ctx.message.author
     authorPhoto = ctx.message.author.display_avatar
