@@ -232,14 +232,14 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
         commander_prevrankrole = get(member.guild.roles, id=1050871551353954405)
         prevrankrole = commander_prevrankrole
         prevrankrole2 = command_prevrankrole2
-        if commander_newrankrole.position >= ctx.author.top_role:
+        if commander_newrankrole.position >= ctx.author.top_role.position:
             return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     elif previousrank == "senior commander":
         command_prevrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
         commander_prevrankrole = get(member.guild.roles, id=1050871518302847016)
         prevrankrole = commander_prevrankrole
         prevrankrole2 = command_prevrankrole2
-        if commander_newrankrole >= ctx.author.top_role:
+        if commander_newrankrole2 >= ctx.author.top_role:
             return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     elif previousrank == "deputy chief":
         chief_prevrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
@@ -253,7 +253,7 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
         chief_prevrankrole = get(member.guild.roles, id=1050871238660206662)
         prevrankrole = chief_prevrankrole
         prevrankrole2 = chief_prevrankrole2
-        if chief_newrankrole >= ctx.author.top_role:
+        if chief_newrankrole2 >= ctx.author.top_role:
             return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     else:
         return await ctx.reply(f"Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `Variable 'previousrank' does not represent any current rank. Check your spelling and try again.`")
