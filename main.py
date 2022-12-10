@@ -138,8 +138,8 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
     previousrank = previousrank.lower()
     newrank = newrank.lower()
 
-    newrankrole = discord.Role
-    prevrankrole = discord.Role
+    #newrankrole = discord.Role
+    #prevrankrole = discord.Role
 
     probie_newrankrole = discord.Role
     officer_newrankrole = discord.Role
@@ -343,6 +343,7 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
     authorName = ctx.message.author
     authorPhoto = ctx.message.author.display_avatar
     memberAvatar = await avatar(ctx, member=username)
+
     if prevrankrole >= newrankrole:
         embedPromote = discord.Embed(
             title="***LSPD Promotion Logging***\n",
