@@ -192,21 +192,29 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
         commander_newrankrole = get(member.guild.roles, id=1050871551353954405)
         newrankrole = commander_newrankrole
         newrankrole2 = command_newrankrole2
+        if commander_newrankrole2 >= ctx.author.top_role.position:
+            return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     elif newrank == "senior commander":
         command_newrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
         commander_newrankrole = get(member.guild.roles, id=1050871518302847016)
         newrankrole = commander_newrankrole
         newrankrole2 = command_newrankrole2
+        if command_newrankrole2 >= ctx.author.top_role:
+            return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     elif newrank == "deputy chief":
         chief_newrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
         chief_newrankrole = get(member.guild.roles, id=1050871342129496146)
         newrankrole = chief_newrankrole
         newrankrole2 = chief_newrankrole2
+        if chief_newrankrole >= ctx.author.top_role:
+            return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     elif newrank == "assistant chief":
         chief_newrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
         chief_newrankrole = get(member.guild.roles, id=1050871238660206662)
         newrankrole = chief_newrankrole
         newrankrole2 = chief_newrankrole2
+        if chief_newrankrole2 >= ctx.author.top_role:
+            return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     else:
         return await ctx.reply(f"Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `Variable 'newrank' does not represent any current rank. Check your spelling and try again.`")
     if previousrank == "probationary officer":
@@ -232,31 +240,21 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
         commander_prevrankrole = get(member.guild.roles, id=1050871551353954405)
         prevrankrole = commander_prevrankrole
         prevrankrole2 = command_prevrankrole2
-        position = data.get('position', commander_newrankrole)
-        print(postion)
-        if position >= ctx.author.top_role.position:
-            return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     elif previousrank == "senior commander":
         command_prevrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
         commander_prevrankrole = get(member.guild.roles, id=1050871518302847016)
         prevrankrole = commander_prevrankrole
         prevrankrole2 = command_prevrankrole2
-        if commander_newrankrole2 >= ctx.author.top_role:
-            return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     elif previousrank == "deputy chief":
         chief_prevrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
         chief_prevrankrole = get(member.guild.roles, id=1050871342129496146)
         prevrankrole = chief_prevrankrole
         prevrankrole2 = chief_prevrankrole2
-        if chief_newrankrole >= ctx.author.top_role:
-            return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     elif previousrank == "assistant chief":
         chief_prevrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
         chief_prevrankrole = get(member.guild.roles, id=1050871238660206662)
         prevrankrole = chief_prevrankrole
         prevrankrole2 = chief_prevrankrole2
-        if chief_newrankrole2 >= ctx.author.top_role:
-            return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     else:
         return await ctx.reply(f"Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `Variable 'previousrank' does not represent any current rank. Check your spelling and try again.`")
     if username == ctx.author:
