@@ -38,7 +38,7 @@ async def status():
 async def on_ready():
     e = None
     try:
-        channel = bot.get_channel(1050968080890728529)
+        channel = bot.get_channel(1050893912950177803)
         await channel.send(f'{bot.user.mention} is now online!')
     except Exception as e:
         print(e)
