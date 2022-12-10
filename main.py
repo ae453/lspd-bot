@@ -12,8 +12,11 @@ from discord.ext import tasks
 
 with open('config.json', 'r') as f:
     data = json.load(f)
-    token = data['token']
     prefix = data['prefix']
+
+with open('token.json', 'r') as f:
+    data = json.load(f)
+    token = data['token']
 
 bot = commands.Bot(command_prefix=commands.when_mentioned_or(prefix), case_insensitive=True, intents=discord.Intents.all())
 bot.is_synced = False
