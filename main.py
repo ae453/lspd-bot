@@ -131,7 +131,7 @@ async def unit(ctx):
     name="modify",
     ephemeral=True
 )
-@discord.app_commands.checks.has_any_role(1043952177128951849, 1043952204211556373)
+@discord.app_commands.checks.has_any_role(1050868223547019425, 1050871457653202956)
 async def modify(ctx: commands.Context, username: typing.Union[discord.Member, discord.User], previousrank, newrank, details):
     tz = timezone('EST')
     print(f"{ctx.author} attempted to run `/unit modify` inside {ctx.channel} at {timezone('EST')} Eastern Standard Time! Unkown exceptions at this time.")
