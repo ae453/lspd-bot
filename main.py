@@ -138,8 +138,10 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
     previousrank = previousrank.lower()
     newrank = newrank.lower()
 
-    #newrankrole2 = discord.Role
-    #prevrankrole2 = discord.Role
+    newrankrole = discord.Role
+    prevrankrole = discord.Role
+    newrankrole2 = discord.Role
+    prevrankrole2 = discord.Role
 
     probie_newrankrole = discord.Role
     officer_newrankrole = discord.Role
