@@ -138,8 +138,8 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
     previousrank = previousrank.lower()
     newrank = newrank.lower()
 
-    #newrankrole = discord.Role
-    #prevrankrole = discord.Role
+    #newrankrole2 = discord.Role
+    #prevrankrole2 = discord.Role
 
     probie_newrankrole = discord.Role
     officer_newrankrole = discord.Role
@@ -173,56 +173,84 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
     if newrank == "probationary officer":
         entry_newrankrole2 = get(member.guild.roles, id=1050873087274520668)  # category role
         probie_newrankrole = get(member.guild.roles, id=1050872986263105567)
+        newrankrole = entry_newrankrole2
+        newrankrole2 = probie_newrankrole2
     elif newrank == "officer":
         swornIn_newrankrole2 = get(member.guild.roles, id=1050872870848430121)  # category role
         officer_newrankrole = get(member.guild.roles, id=1050872931628105760)
+        newrankrole = swornIn_newrankrole2
+        newrankrole2 = officer_newrankrole
     elif newrank == "sergeant":
         supervisor_newrankrole2 = get(member.guild.roles, id=1050871602058903572)  # category role
         sgt1_newrankrole1 = get(member.guild.roles, id=1050872770063515718)
+        newrankrole = supervisor_newrankrole2
+        newrankrole2 = sgt1_newrankrole1
     elif newrank == "commander":
         command_newrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
         commander_newrankrole = get(member.guild.roles, id=1050871551353954405)
+        newrankrole = command_newrankrole2
+        newrankrole2 = commander_newrankrole
     elif newrank == "senior commander":
         command_newrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
         commander_newrankrole = get(member.guild.roles, id=1050871518302847016)
+        newrankrole = command_newrankrole2
+        newrankrole2 = commander_newrankrole
     elif newrank == "deputy chief":
         chief_newrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
         chief_newrankrole = get(member.guild.roles, id=1050871342129496146)
+        newrankrole = chief_newrankrole2
+        newrankrole2 = chief_newrankrole
     elif newrank == "assistant chief":
         chief_newrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
         chief_newrankrole = get(member.guild.roles, id=1050871238660206662)
+        newrankrole = chief_newrankrole2
+        newrankrole2 = chief_newrankrole
     else:
         return await ctx.reply(f"Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `Variable 'newrank' does not represent any current rank. Check your spelling and try again.`")
     if previousrank == "probationary officer":
         entry_prevrankrole2 = get(member.guild.roles, id=1050873087274520668)  # category role
         probie_prevrankrole = get(member.guild.roles, id=1050872986263105567)
+        prevrankrole = entry_prevrankrole2
+        prevrankrole2 = probie_prevrankrole
     elif previousrank == "officer":
         swornIn_prevrankrole2 = get(member.guild.roles, id=1050872870848430121)  # category role
         officer_prevrankrole = get(member.guild.roles, id=1050872931628105760)
+        prevrankrole = swornIn_prevrankrole2
+        prevrankrole2 = officer_prevrankrole
     elif previousrank == "sergeant":
         supervisor_prevrankrole2 = get(member.guild.roles, id=1050871602058903572)  # category role
         sgt1_prevrankrole1 = get(member.guild.roles, id=1050872770063515718)
         sgt2_prevrankrole2 = get(member.guild.roles, id=1050872690795348090)
         sgt3_prevrankrole3 = get(member.guild.roles, id=1050871917072097280)
         sgt4_prevrankrole4 = get(member.guild.roles, id=1050871664038121472)
+        prevrankrole = supervisor_prevrankrole2
+        prevrankrole2 = sgt1_prevrankrole
     elif previousrank == "commander":
         command_prevrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
         commander_prevrankrole = get(member.guild.roles, id=1050871551353954405)
+        prevrankrole = command_prevrankrole2
+        prevrankrole2 = commander_prevrankrole
         if commander_newrankrole >= ctx.author.top_role:
             return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     elif previousrank == "senior commander":
         command_prevrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
         commander_prevrankrole = get(member.guild.roles, id=1050871518302847016)
+        prevrankrole = command_prevrankrole2
+        prevrankrole2 = commander_prevrankrole
         if commander_newrankrole >= ctx.author.top_role:
             return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     elif previousrank == "deputy chief":
         chief_prevrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
         chief_prevrankrole = get(member.guild.roles, id=1050871342129496146)
+        prevrankrole = chief_prevrankrole2
+        prevrankrole2 = chief_prevrankrole
         if chief_newrankrole >= ctx.author.top_role:
             return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     elif previousrank == "assistant chief":
         chief_prevrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
         chief_prevrankrole = get(member.guild.roles, id=1050871238660206662)
+        prevrankrole = chief_prevrankrole2
+        prevrankrole2 = chief_prevrankrole
         if chief_newrankrole >= ctx.author.top_role:
             return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     else:
@@ -343,97 +371,100 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
     authorName = ctx.message.author
     authorPhoto = ctx.message.author.display_avatar
     memberAvatar = await avatar(ctx, member=username)
-
-    if prevrankrole >= newrankrole:
-        embedPromote = discord.Embed(
-            title="***LSPD Promotion Logging***\n",
-            description="<:lines:1050287334752526356>"*15,
-            color=0x0599f0
-        )
-        embedPromote.add_field(
-            name="<:userbadge:1050285701482151956> User",
-            value="<:lines:1050287334752526356>"*4 + f"\n<:line_arrow_white:1050286867326705665> *<@{userid}>*",
-            inline=False
-        )
-        embedPromote.add_field(
-            name=f":military_medal: Previous Rank {prevrankemoji}",
-            value=f"<:lines:1050287334752526356>"*8 + f"\n<:line_arrow_white:1050286867326705665> *{prevranktext}*",
-            inline=False
-        )
-        embedPromote.add_field(
-            name=f":military_medal: New Rank {newrankemoji}",
-            value="<:lines:1050287334752526356>"*7 + f"\n<:line_arrow_white:1050286867326705665> *{newranktext}*",
-            inline=False
-        )
-        embedPromote.add_field(
-            name=":pencil: Details",
-            value="<:lines:1050287334752526356>"*5 + f"\n<:line_arrow_white:1050286867326705665> *{details}*",
-            inline=False
-        )
-        embedPromote.set_author(name=authorName, url=None, icon_url=authorPhoto)
-        embedPromote.set_thumbnail(url=memberAvatar)
-        embedPromote.set_footer(text="𝘛𝘳𝘶𝘴𝘵𝘦𝘥 𝘚𝘦𝘳𝘷𝘪𝘤𝘦 𝘸𝘪𝘵𝘩 𝘙𝘦𝘴𝘱𝘦𝘤𝘵",
-                                icon_url="https://media.discordapp.net/attachments/1025840738388410428/1026548866675392662/Seal_of_LS_Ghost.png",
-                                )
-        embedPromote.timestamp = datetime.now(tz)
-    #### Sending Initial Messages to User
-        time.sleep(2)
-        try:
-            with open('config.json', 'r') as f:
-                data = json.load(f)
-                promologid = data['promolog']
-            channel = bot.get_channel(promologid)
-            await channel.send(embed=embedPromote)
-            await ctx.reply('Promotion Sucessfully Logged! :tada:')
-            print(f'{username} has been promoted!')
-        except Exception as e:
-            await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `{e}`")
-            print(e)
-    elif prevrankrole <= newrankrole:
-        embedDemote = discord.Embed(
-            title="***LSPD Demotion Logging***\n",
-            description="<:lines:1050287334752526356>" * 15,
-            color=0x0599f0
-        )
-        embedDemote.add_field(
-            name="<:userbadge:1050285701482151956> User",
-            value="<:lines:1050287334752526356>" * 4 + f"\n<:line_arrow_white:1050286867326705665> *<@{userid}>*",
-            inline=False
-        )
-        embedDemote.add_field(
-            name=f":military_medal: Previous Rank {prevrankemoji}",
-            value=f"<:lines:1050287334752526356>" * 8 + f"\n<:line_arrow_white:1050286867326705665> *{prevranktext}*",
-            inline=False
-        )
-        embedDemote.add_field(
-            name=f":military_medal: New Rank {newrankemoji}",
-            value="<:lines:1050287334752526356>" * 7 + f"\n<:line_arrow_white:1050286867326705665> *{newranktext}*",
-            inline=False
-        )
-        embedDemote.add_field(
-            name=":pencil: Details",
-            value="<:lines:1050287334752526356>" * 5 + f"\n<:line_arrow_white:1050286867326705665> *{details}*",
-            inline=False
-        )
-        embedDemote.set_author(name=authorName, url=None, icon_url=authorPhoto)
-        embedDemote.set_thumbnail(url=memberAvatar)
-        embedDemote.set_footer(text="𝘛𝘳𝘶𝘴𝘵𝘦𝘥 𝘚𝘦𝘳𝘷𝘪𝘤𝘦 𝘸𝘪𝘵𝘩 𝘙𝘦𝘴𝘱𝘦𝘤𝘵",
-                                icon_url="https://media.discordapp.net/attachments/1025840738388410428/1026548866675392662/Seal_of_LS_Ghost.png",
-                                )
-        embedDemote.timestamp = datetime.now(tz)
+    if prevrankrole2 >= newrankrole2:
+        if prevrankrole >= newrankrole:
+            embedPromote = discord.Embed(
+                title="***LSPD Promotion Logging***\n",
+                description="<:lines:1050287334752526356>"*15,
+                color=0x0599f0
+            )
+            embedPromote.add_field(
+                name="<:userbadge:1050285701482151956> User",
+                value="<:lines:1050287334752526356>"*4 + f"\n<:line_arrow_white:1050286867326705665> *<@{userid}>*",
+                inline=False
+            )
+            embedPromote.add_field(
+                name=f":military_medal: Previous Rank {prevrankemoji}",
+                value=f"<:lines:1050287334752526356>"*8 + f"\n<:line_arrow_white:1050286867326705665> *{prevranktext}*",
+                inline=False
+            )
+            embedPromote.add_field(
+                name=f":military_medal: New Rank {newrankemoji}",
+                value="<:lines:1050287334752526356>"*7 + f"\n<:line_arrow_white:1050286867326705665> *{newranktext}*",
+                inline=False
+            )
+            embedPromote.add_field(
+                name=":pencil: Details",
+                value="<:lines:1050287334752526356>"*5 + f"\n<:line_arrow_white:1050286867326705665> *{details}*",
+                inline=False
+            )
+            embedPromote.set_author(name=authorName, url=None, icon_url=authorPhoto)
+            embedPromote.set_thumbnail(url=memberAvatar)
+            embedPromote.set_footer(text="𝘛𝘳𝘶𝘴𝘵𝘦𝘥 𝘚𝘦𝘳𝘷𝘪𝘤𝘦 𝘸𝘪𝘵𝘩 𝘙𝘦𝘴𝘱𝘦𝘤𝘵",
+                                    icon_url="https://media.discordapp.net/attachments/1025840738388410428/1026548866675392662/Seal_of_LS_Ghost.png",
+                                    )
+            embedPromote.timestamp = datetime.now(tz)
         #### Sending Initial Messages to User
-        time.sleep(2)
-        try:
-            with open('config.json', 'r') as f:
-                data = json.load(f)
-                promologid = data['promolog']
-            channel = bot.get_channel(promologid)
-            await channel.send(embed=embedDemote)
-            await ctx.reply('Demotion Sucessfully Logged! <:check:1050933083442008094>')
-            print(f'{username} has been demoted!')
-        except Exception as e:
-            await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `{e}`")
-            print(e)
+            time.sleep(2)
+            try:
+                with open('config.json', 'r') as f:
+                    data = json.load(f)
+                    promologid = data['promolog']
+                channel = bot.get_channel(promologid)
+                await channel.send(embed=embedPromote)
+                await ctx.reply('Promotion Sucessfully Logged! :tada:')
+                print(f'{username} has been promoted!')
+            except Exception as e:
+                await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `{e}`")
+                print(e)
+    elif prevrankrole2 <= newrankrole2:
+        if prevrankrole <= newrankrole:
+            embedDemote = discord.Embed(
+                title="***LSPD Demotion Logging***\n",
+                description="<:lines:1050287334752526356>" * 15,
+                color=0x0599f0
+            )
+            embedDemote.add_field(
+                name="<:userbadge:1050285701482151956> User",
+                value="<:lines:1050287334752526356>" * 4 + f"\n<:line_arrow_white:1050286867326705665> *<@{userid}>*",
+                inline=False
+            )
+            embedDemote.add_field(
+                name=f":military_medal: Previous Rank {prevrankemoji}",
+                value=f"<:lines:1050287334752526356>" * 8 + f"\n<:line_arrow_white:1050286867326705665> *{prevranktext}*",
+                inline=False
+            )
+            embedDemote.add_field(
+                name=f":military_medal: New Rank {newrankemoji}",
+                value="<:lines:1050287334752526356>" * 7 + f"\n<:line_arrow_white:1050286867326705665> *{newranktext}*",
+                inline=False
+            )
+            embedDemote.add_field(
+                name=":pencil: Details",
+                value="<:lines:1050287334752526356>" * 5 + f"\n<:line_arrow_white:1050286867326705665> *{details}*",
+                inline=False
+            )
+            embedDemote.set_author(name=authorName, url=None, icon_url=authorPhoto)
+            embedDemote.set_thumbnail(url=memberAvatar)
+            embedDemote.set_footer(text="𝘛𝘳𝘶𝘴𝘵𝘦𝘥 𝘚𝘦𝘳𝘷𝘪𝘤𝘦 𝘸𝘪𝘵𝘩 𝘙𝘦𝘴𝘱𝘦𝘤𝘵",
+                                    icon_url="https://media.discordapp.net/attachments/1025840738388410428/1026548866675392662/Seal_of_LS_Ghost.png",
+                                    )
+            embedDemote.timestamp = datetime.now(tz)
+            #### Sending Initial Messages to User
+            time.sleep(2)
+            try:
+                with open('config.json', 'r') as f:
+                    data = json.load(f)
+                    promologid = data['promolog']
+                channel = bot.get_channel(promologid)
+                await channel.send(embed=embedDemote)
+                await ctx.reply('Demotion Sucessfully Logged! <:check:1050933083442008094>')
+                print(f'{username} has been demoted!')
+            except Exception as e:
+                await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `{e}`")
+                print(e)
+    else:
+        await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `Unkown Excpetion`")
 
 
 bot.run(token)
