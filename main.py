@@ -133,8 +133,10 @@ async def unit(ctx):
 )
 @discord.app_commands.checks.has_any_role(1050868223547019425, 1050871457653202956)
 async def modify(ctx: commands.Context, username: typing.Union[discord.Member, discord.User], previousrank, newrank, details):
+    if ctx.interaction:
+        await ctx.interaction.response.defer()
     tz = timezone('EST')
-    print(f"{ctx.author} attempted to run `/unit modify` inside {ctx.channel} at {timezone('EST')} Eastern Standard Time! Unkown exceptions at this time.")
+    print(f"{ctx.author} attempted to run `/unit modify` inside {ctx.channel} at {datetime.now(tz)} Eastern Standard Time! Unkown exceptions at this time.")
     previousrank = previousrank.lower()
     newrank = newrank.lower()
 
