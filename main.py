@@ -68,7 +68,7 @@ async def avatar(ctx: commands.Context, member: typing.Union[discord.Member, dis
         except Exception as e:
             await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `{e}`")
             print(e)
-            time.sleep(5)
+            await asyncio.sleep(5)
             return
     else:
         try:
@@ -77,7 +77,7 @@ async def avatar(ctx: commands.Context, member: typing.Union[discord.Member, dis
         except Exception as e:
             await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `{e}`")
             print(e)
-            time.sleep(5)
+            await asyncio.sleep(5)
             return
 
 @bot.command(name="ping", description="Simple ping pong command")
@@ -376,8 +376,8 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
     authorPhoto = ctx.message.author.display_avatar
     memberAvatar = await avatar(ctx, member=username)
 
-    if prevrankrole2 >= newrankrole2:
-        if prevrankrole >= newrankrole:
+    if prevrankrole2 <= newrankrole2:
+        if prevrankrole <= newrankrole:
             embedPromote = discord.Embed(
                 title="***LSPD Promotion Logging***\n",
                 description="<:lines:1050287334752526356>"*15,
@@ -410,22 +410,23 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
                                     )
             embedPromote.timestamp = datetime.now(tz)
         #### Sending Initial Messages to User
-            time.sleep(2)
-            #try:
-            with open('config.json', 'r') as f:
-                data = json.load(f)
-                promologid = data['promolog']
-            channel = bot.get_channel(promologid)
-            await channel.send(embed=embedPromote)
-            await ctx.reply('Promotion Sucessfully Logged! :tada:')
-            print(f'{username} has been promoted!')
-            #except Exception as e:
-            #    await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `{e}`")
-            #    print(e)
-            #    return
+            await asyncio.sleep(2)
+            try:
+                with open('config.json', 'r') as f:
+                    data = json.load(f)
+                    promologid = data['promolog']
+                channel = bot.get_channel(promologid)
+                await channel.send(embed=embedPromote)
+                await ctx.reply('Promotion Sucessfully Logged! :tada:')
+                print(f'{username} has been promoted!')
+                return
+            except Exception as e:
+                await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `{e}`")
+                print(e)
+                return
 
-    if prevrankrole2 <= newrankrole2:
-        if prevrankrole <= newrankrole:
+    if prevrankrole2 >= newrankrole2:
+        if prevrankrole >= newrankrole:
             embedDemote = discord.Embed(
                 title="***LSPD Demotion Logging***\n",
                 description="<:lines:1050287334752526356>" * 15,
@@ -458,19 +459,20 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
                                     )
             embedDemote.timestamp = datetime.now(tz)
             #### Sending Initial Messages to User
-            time.sleep(2)
-            #try:
-            with open('config.json', 'r') as f:
-                data = json.load(f)
-                promologid = data['promolog']
-            channel = bot.get_channel(promologid)
-            await channel.send(embed=embedDemote)
-            await ctx.reply('Demotion Sucessfully Logged! <:check:1050933083442008094>')
-            print(f'{username} has been demoted!')
-            #except Exception as e:
-            #    await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `{e}`")
-            #    print(e)
-            #    return
+            await asyncio.sleep(2)
+            try:
+                with open('config.json', 'r') as f:
+                    data = json.load(f)
+                    promologid = data['promolog']
+                channel = bot.get_channel(promologid)
+                await channel.send(embed=embedDemote)
+                await ctx.reply('Demotion Sucessfully Logged! <:check:1050933083442008094>')
+                print(f'{username} has been demoted!')
+                return
+            except Exception as e:
+                await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `{e}`")
+                print(e)
+                return
     else:
         await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `Unkown Excpetion`")
         return
