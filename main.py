@@ -1,10 +1,11 @@
+import asyncio
 import json
 import discord
 from discord import app_commands
 from discord.ext import commands
 from discord.utils import get
 import random
-import time
+import asyncio
 import typing
 from datetime import datetime
 from pytz import timezone
@@ -68,7 +69,6 @@ async def avatar(ctx: commands.Context, member: typing.Union[discord.Member, dis
         except Exception as e:
             await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `{e}`")
             print(e)
-            await asyncio.sleep(5)
             return
     else:
         try:
@@ -77,7 +77,6 @@ async def avatar(ctx: commands.Context, member: typing.Union[discord.Member, dis
         except Exception as e:
             await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `{e}`")
             print(e)
-            await asyncio.sleep(5)
             return
 
 @bot.command(name="ping", description="Simple ping pong command")
@@ -136,83 +135,76 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
     if ctx.interaction:
         await ctx.interaction.response.defer()
     tz = timezone('EST')
-    print(f"{ctx.author} attempted to run `/unit modify` inside {ctx.channel} at {datetime.now(tz)} Eastern Standard Time! Unkown exceptions at this time.")
+    timedate = datetime.now(tz)
+    date = timedate.date()
+    timenow_hour = timedate.hour
+    timenow_minute = timedate.minute
+    timenow = f"{timenow_hour}:{timenow_minute}"
+    print(f"{ctx.author} attempted to run `/unit modify` inside {ctx.channel} at {timenow_hour}:{timenow_minute} Eastern Standard Time on {date}! Unkown exceptions at this time.")
     previousrank = previousrank.lower()
     newrank = newrank.lower()
+
+    userid = username.id
+    member = ctx.guild.get_member(userid)
 
     newrankrole = discord.Role
     prevrankrole = discord.Role
     newrankrole2 = discord.Role
     prevrankrole2 = discord.Role
 
-    probie_newrankrole = discord.Role
-    officer_newrankrole = discord.Role
-    sgt1_newrankrole1 = discord.Role
-    commander_newrankrole = discord.Role
-    chief_newrankrole = discord.Role
+    entry_newrankrole2 = get(member.guild.roles, id=1050873087274520668)  # category role
+    probie_newrankrole = get(member.guild.roles, id=1050872986263105567)
+    swornIn_newrankrole2 = get(member.guild.roles, id=1050872870848430121)  # category role
+    officer_newrankrole = get(member.guild.roles, id=1050872931628105760)
+    supervisor_newrankrole2 = get(member.guild.roles, id=1050871602058903572)  # category role
+    sgt1_newrankrole1 = get(member.guild.roles, id=1050872770063515718)
+    command_newrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
+    commander_newrankrole = get(member.guild.roles, id=1050871551353954405)
+    commander2_newrankrole = get(member.guild.roles, id=1050871518302847016)
+    chief_newrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
+    chief_newrankrole = get(member.guild.roles, id=1050871342129496146)
+    chief2_newrankrole = get(member.guild.roles, id=1050871238660206662)
 
-    probie_newrankrole2 = discord.Role
-    officer_newrankrole2 = discord.Role
-    supervisor_newrankrole2 = discord.Role
-    commander_newrankrole2 = discord.Role
-    chief_newrankrole2 = discord.Role
-
-    probie_prevrankrole2 = discord.Role
-    officer_prevrankrole2 = discord.Role
-    supervisor_prevrankrole2 = discord.Role
-    commander_prevrankrole2 = discord.Role
-    chief_prevrankrole2 = discord.Role
-
-    probie_prevrankrole = discord.Role
-    officer_prevrankrole = discord.Role
-    sgt1_prevrankrole = discord.Role
-    sgt2_prevrankrole = discord.Role
-    sgt3_prevrankrole = discord.Role
-    sgt4_prevrankrole = discord.Role
-    commander_prevrankrole = discord.Role
-    chief_prevrankrole = discord.Role
-
-    userid = username.id
-    member = ctx.guild.get_member(userid)
+    entry_prevrankrole2 = get(member.guild.roles, id=1050873087274520668)  # category role
+    probie_prevrankrole = get(member.guild.roles, id=1050872986263105567)
+    swornIn_prevrankrole2 = get(member.guild.roles, id=1050872870848430121)  # category role
+    officer_prevrankrole = get(member.guild.roles, id=1050872931628105760)
+    supervisor_prevrankrole2 = get(member.guild.roles, id=1050871602058903572)  # category role
+    sgt1_prevrankrole1 = get(member.guild.roles, id=1050872770063515718)
+    sgt2_prevrankrole2 = get(member.guild.roles, id=1050872690795348090)
+    sgt3_prevrankrole3 = get(member.guild.roles, id=1050871917072097280)
+    sgt4_prevrankrole4 = get(member.guild.roles, id=1050871664038121472)
+    command_prevrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
+    commander_prevrankrole = get(member.guild.roles, id=1050871551353954405)
+    commander2_prevrankrole = get(member.guild.roles, id=1050871518302847016)
+    chief_prevrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
+    chief_prevrankrole = get(member.guild.roles, id=1050871342129496146)
+    chief2_prevrankrole = get(member.guild.roles, id=1050871238660206662)
     if newrank == "probationary officer":
-        entry_newrankrole2 = get(member.guild.roles, id=1050873087274520668)  # category role
-        probie_newrankrole = get(member.guild.roles, id=1050872986263105567)
         newrankrole = probie_newrankrole2
         newrankrole2 = entry_newrankrole2
     elif newrank == "officer":
-        swornIn_newrankrole2 = get(member.guild.roles, id=1050872870848430121)  # category role
-        officer_newrankrole = get(member.guild.roles, id=1050872931628105760)
         newrankrole = officer_newrankrole
         newrankrole2 = swornIn_newrankrole2
     elif newrank == "sergeant":
-        supervisor_newrankrole2 = get(member.guild.roles, id=1050871602058903572)  # category role
-        sgt1_newrankrole1 = get(member.guild.roles, id=1050872770063515718)
         newrankrole = sgt1_newrankrole1
         newrankrole2 = supervisor_newrankrole2
     elif newrank == "commander":
-        command_newrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
-        commander_newrankrole = get(member.guild.roles, id=1050871551353954405)
         newrankrole = commander_newrankrole
         newrankrole2 = command_newrankrole2
-        if commander_newrankrole2 >= ctx.author.top_role.position:
+        if command_newrankrole2 >= ctx.author.top_role:
             return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     elif newrank == "senior commander":
-        command_newrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
-        commander_newrankrole = get(member.guild.roles, id=1050871518302847016)
         newrankrole = commander_newrankrole
         newrankrole2 = command_newrankrole2
         if command_newrankrole2 >= ctx.author.top_role:
             return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     elif newrank == "deputy chief":
-        chief_newrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
-        chief_newrankrole = get(member.guild.roles, id=1050871342129496146)
         newrankrole = chief_newrankrole
         newrankrole2 = chief_newrankrole2
         if chief_newrankrole >= ctx.author.top_role:
             return await ctx.reply("Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `User Requested Promotion for a Higher Rank than Themselves`")
     elif newrank == "assistant chief":
-        chief_newrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
-        chief_newrankrole = get(member.guild.roles, id=1050871238660206662)
         newrankrole = chief_newrankrole
         newrankrole2 = chief_newrankrole2
         if chief_newrankrole2 >= ctx.author.top_role:
@@ -220,42 +212,25 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
     else:
         return await ctx.reply(f"Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `Variable 'newrank' does not represent any current rank. Check your spelling and try again.`")
     if previousrank == "probationary officer":
-        entry_prevrankrole2 = get(member.guild.roles, id=1050873087274520668)  # category role
-        probie_prevrankrole = get(member.guild.roles, id=1050872986263105567)
         prevrankrole = probie_prevrankrole
         prevrankrole2 = entry_prevrankrole2
     elif previousrank == "officer":
-        swornIn_prevrankrole2 = get(member.guild.roles, id=1050872870848430121)  # category role
-        officer_prevrankrole = get(member.guild.roles, id=1050872931628105760)
         prevrankrole = officer_prevrankrole
         prevrankrole2 = swornIn_prevrankrole2
     elif previousrank == "sergeant":
-        supervisor_prevrankrole2 = get(member.guild.roles, id=1050871602058903572)  # category role
-        sgt1_prevrankrole1 = get(member.guild.roles, id=1050872770063515718)
-        sgt2_prevrankrole2 = get(member.guild.roles, id=1050872690795348090)
-        sgt3_prevrankrole3 = get(member.guild.roles, id=1050871917072097280)
-        sgt4_prevrankrole4 = get(member.guild.roles, id=1050871664038121472)
-        prevrankrole = sgt1_prevrankrole
+        prevrankrole = sgt1_prevrankrole1
         prevrankrole2 = supervisor_prevrankrole2
     elif previousrank == "commander":
-        command_prevrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
-        commander_prevrankrole = get(member.guild.roles, id=1050871551353954405)
         prevrankrole = commander_prevrankrole
         prevrankrole2 = command_prevrankrole2
     elif previousrank == "senior commander":
-        command_prevrankrole2 = get(member.guild.roles, id=1050871457653202956)  # category role
-        commander_prevrankrole = get(member.guild.roles, id=1050871518302847016)
-        prevrankrole = commander_prevrankrole
+        prevrankrole = commander2_prevrankrole
         prevrankrole2 = command_prevrankrole2
     elif previousrank == "deputy chief":
-        chief_prevrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
-        chief_prevrankrole = get(member.guild.roles, id=1050871342129496146)
         prevrankrole = chief_prevrankrole
         prevrankrole2 = chief_prevrankrole2
     elif previousrank == "assistant chief":
-        chief_prevrankrole2 = get(member.guild.roles, id=1050868223547019425)  # category role
-        chief_prevrankrole = get(member.guild.roles, id=1050871238660206662)
-        prevrankrole = chief_prevrankrole
+        prevrankrole = chief2_prevrankrole
         prevrankrole2 = chief_prevrankrole2
     else:
         return await ctx.reply(f"Uh-Oh, Something Went Wrong! Exception Raised, Process Terminated.\n> `Variable 'previousrank' does not represent any current rank. Check your spelling and try again.`")
@@ -352,9 +327,11 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
         await member.remove_roles(supervisor_prevrankrole2)
     elif previousrank == "commander" or "senior commander":
         await member.remove_roles(commander_prevrankrole)
+        await member.remove_roles(commander2_prevrankrole)
         await member.remove_roles(command_prevrankrole2)
-    elif previousrank == "deputy chief" or "assistant chief" or "chief":
+    elif previousrank == "deputy chief" or "assistant chief":
         await member.remove_roles(chief_prevrankrole)
+        await member.remove_roles(chief2_prevrankrole)
         await member.remove_roles(chief_prevrankrole2)
     if newrank == "probationary officer":
         await member.add_roles(probie_newrankrole)
@@ -365,10 +342,13 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
     elif newrank == "sergeant":
         await member.add_roles(sgt1_newrankrole1)
         await member.add_roles(supervisor_newrankrole2)
-    elif newrank == "commander" or "senior commander":
+    elif newrank == "commander":
         await member.add_roles(commander_newrankrole)
         await member.add_roles(command_newrankrole2)
-    elif newrank == "deputy chief" or "assistant chief" or "chief":
+    elif newrank == "senior commander":
+        await member.add_roles(commander2_newrankrole)
+        await member.add_roles(command_newrankrole2)
+    elif newrank == "deputy chief" or "assistant chief":
         await member.add_roles(chief_newrankrole)
         await member.add_roles(chief_newrankrole2)
     #### Setting up the Embed
@@ -380,7 +360,7 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
         if prevrankrole <= newrankrole:
             embedPromote = discord.Embed(
                 title="***LSPD Promotion Logging***\n",
-                description="<:lines:1050287334752526356>"*15,
+                description="<:lines:1050287334752526356>"*11,
                 color=0x0599f0
             )
             embedPromote.add_field(
@@ -410,26 +390,25 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
                                     )
             embedPromote.timestamp = datetime.now(tz)
         #### Sending Initial Messages to User
-            await asyncio.sleep(2)
-            try:
-                with open('config.json', 'r') as f:
-                    data = json.load(f)
-                    promologid = data['promolog']
-                channel = bot.get_channel(promologid)
-                await channel.send(embed=embedPromote)
-                await ctx.reply('Promotion Sucessfully Logged! :tada:')
-                print(f'{username} has been promoted!')
-                return
-            except Exception as e:
-                await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `{e}`")
-                print(e)
-                return
+            with open('config.json', 'r') as f:
+                data = json.load(f)
+                promologid = data['promolog']
+            channel = bot.get_channel(promologid)
+            msg = await channel.send(embed=embedPromote)
+            await msg.add_reaction("🎉")
 
+            message = await ctx.author.send(f'Successfully Promoted User.\n> *<@{userid}> from "**{newranktext}**" to "**{prevranktext}**" at "**{timenow_hour}:{timenow_minute}**" on "**{date}**" for "**{details}**"*')
+            await message.add_reaction("<:check:1050933083442008094>")
+
+            await ctx.reply(f"User Successfully Demoted.\n> *Successfully Logged Inside <#{promologid}>*")
+
+            print(f'{username} has been promoted to {newranktext} from {prevranktext} by {ctx.author} for {details} at {timenow_hour}:{timenow_minute} on {date}!')
+            return
     if prevrankrole2 >= newrankrole2:
         if prevrankrole >= newrankrole:
             embedDemote = discord.Embed(
                 title="***LSPD Demotion Logging***\n",
-                description="<:lines:1050287334752526356>" * 15,
+                description="<:lines:1050287334752526356>" * 11,
                 color=0x0599f0
             )
             embedDemote.add_field(
@@ -459,20 +438,19 @@ async def modify(ctx: commands.Context, username: typing.Union[discord.Member, d
                                     )
             embedDemote.timestamp = datetime.now(tz)
             #### Sending Initial Messages to User
-            await asyncio.sleep(2)
-            try:
-                with open('config.json', 'r') as f:
-                    data = json.load(f)
-                    promologid = data['promolog']
-                channel = bot.get_channel(promologid)
-                await channel.send(embed=embedDemote)
-                await ctx.reply('Demotion Sucessfully Logged! <:check:1050933083442008094>')
-                print(f'{username} has been demoted!')
-                return
-            except Exception as e:
-                await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `{e}`")
-                print(e)
-                return
+            with open('config.json', 'r') as f:
+                data = json.load(f)
+                promologid = data['promolog']
+            channel = bot.get_channel(promologid)
+            await channel.send(embed=embedDemote)
+            message = await ctx.author.send(f'Successfully Demoted User.\n> *<@{userid}> to "**{prevranktext}**" from "**{newranktext}**" at "**{timenow_hour}:{timenow_minute}**" on "**{date}**" for "**{details}**"*')
+
+            await message.add_reaction("<:check:1050933083442008094>")
+
+            await ctx.reply(f"User Successfully Promoted.\n> *Successfully Logged Inside <#{promologid}>*")
+
+            print(f'{username} has been demoted to {prevranktext} from {newranktext} by {ctx.author} for {details} at {timenow_hour}:{timenow_minute} on {date}')
+            return
     else:
         await ctx.channel.send(f"Uh Oh. Something Went Wrong! Exception Raised, Process Terminated.\n> `Unkown Excpetion`")
         return
